@@ -17,15 +17,15 @@ public class Sensor : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out m_Hit, m_Distance, m_Layer))
         {
             Debug.DrawRay(transform.position, transform.forward * m_Hit.distance, m_Color);
-            return Mathf.Clamp(Vector3.Distance(transform.position, m_Hit.point), 0.0f, m_Distance);
+            return Mathf.Clamp(Vector3.Distance(transform.position, m_Hit.point), 0.0f, m_Distance) / m_Distance;
         }
 
         Debug.DrawRay(transform.position, transform.forward * m_Distance, m_Color);
-        return m_Distance;
+        return 1.0f;
     }
 
     public float GetInverseDistance()
     {
-        return m_Distance - GetDistance();
+        return 1.0f - GetDistance();
     }
 }

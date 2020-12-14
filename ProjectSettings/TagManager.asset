@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Snake
+  - Food
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Body
   - Wall
   - Food
-  - 
+  - Snake
   - 
   - 
   - 

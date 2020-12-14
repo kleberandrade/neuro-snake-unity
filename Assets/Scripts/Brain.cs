@@ -7,15 +7,20 @@ public class Brain : MonoBehaviour
     public float m_TimeRate = 1.0f;
     private Snake m_Snake;
 
-    [Header("Body")]
-    public Body m_LastBody;
-
     [Header("Sensors")]
     public GameObject m_FoodSensor;
     public GameObject m_WallSensor;
     public GameObject m_BodySensor;
     public int m_Amount = 8;
     private List<Sensor> m_Sensors = new List<Sensor>();
+
+    [Header("Sample")]
+    public int m_BatchSize = 8;
+    private int m_BatchCount = 0;
+    public HashSet<DataSet> m_Samples = new HashSet<DataSet>();
+
+    [Header("Neural Network")]
+    private MultiLayerPreceptronNetwork m_Net;
 
     private void Start()
     {
@@ -36,6 +41,42 @@ public class Brain : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        Snake.OnMove += OnMove;
+        Snake.OnDie += OnDie;
+    }
+
+    private void OnDisable()
+    {
+        Snake.OnMove -= OnMove;
+        Snake.OnDie -= OnDie;
+    }
+
+    private void OnMove()
+    {
+        double[] outputs = new double[3];
+        outputs[0] = m_Snake.Left > 0.5f ? 1.0f : -1.0f;
+        outputs[1] = m_Snake.Right > 0.5f ? 1.0f : -1.0f;
+        outputs[0] = m_Snake.Left < 0.5f && m_Snake.Right < 0.5f ? 1.0f : -1.0f;
+
+        double[] inputs = new double[m_Sensors.Count];
+        for (int i = 0; i < m_Sensors.Count; i++)
+            inputs[i] = m_Sensors[i].GetInverseDistance() * 2.0f - 1.0f;
+
+        m_Samples.Add(new DataSet()
+        {
+            inputs = inputs,
+            output = outputs
+        });
+
+        Debug.Log($"SET {m_Samples.Count}");
+    }
+
+    private void OnDie()
+    {
+        //m_Samples.RemoveAt(m_Samples.Count - 1);
+    }
 
     private void Update()
     {

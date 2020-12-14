@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 213830638}
   - component: {fileID: 213830637}
   - component: {fileID: 213830636}
+  - component: {fileID: 213830640}
   m_Layer: 9
   m_Name: WallBottom
   m_TagString: Untagged
@@ -219,6 +220,22 @@ Transform:
   m_Father: {fileID: 352814790}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &213830640
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213830635}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &260784723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -236,6 +253,12 @@ PrefabInstance:
       propertyPath: m_Body
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8951077866750173006, guid: 2f13fdf02fe2a2149bfa92c7fb0a020d,
+        type: 3}
+      propertyPath: m_BodyPrefab
+      value: 
+      objectReference: {fileID: 8951077866750172995, guid: 2f13fdf02fe2a2149bfa92c7fb0a020d,
+        type: 3}
     - target: {fileID: 8951077866750173007, guid: 2f13fdf02fe2a2149bfa92c7fb0a020d,
         type: 3}
       propertyPath: m_RootOrder
@@ -431,6 +454,7 @@ GameObject:
   - component: {fileID: 540397520}
   - component: {fileID: 540397519}
   - component: {fileID: 540397518}
+  - component: {fileID: 540397522}
   m_Layer: 9
   m_Name: WallRight
   m_TagString: Untagged
@@ -514,6 +538,22 @@ Transform:
   m_Father: {fileID: 352814790}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &540397522
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540397517}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &600789535
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,6 +842,7 @@ GameObject:
   - component: {fileID: 907415681}
   - component: {fileID: 907415680}
   - component: {fileID: 907415679}
+  - component: {fileID: 907415683}
   m_Layer: 9
   m_Name: WallTop
   m_TagString: Untagged
@@ -885,6 +926,22 @@ Transform:
   m_Father: {fileID: 352814790}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &907415683
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907415678}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,7 +1052,7 @@ GameObject:
   - component: {fileID: 1517595634}
   - component: {fileID: 1517595629}
   - component: {fileID: 1517595628}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Head
   m_TagString: Snake
   m_Icon: {fileID: 0}
@@ -1015,7 +1072,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UseManualInput: 1
-  m_TimeRate: 1
+  m_TimeRate: 0.5
   m_FoodSensor: {fileID: 3627292608932232324, guid: 03b38760949c2d149a09e6e4417ec596,
     type: 3}
   m_WallSensor: {fileID: 9128740853906563646, guid: 022d48a070265d6448102478e78867d5,
@@ -1023,6 +1080,7 @@ MonoBehaviour:
   m_BodySensor: {fileID: 4577132039623846388, guid: 82b1ff034e97e0b489fcd7789e688608,
     type: 3}
   m_Amount: 8
+  m_BatchSize: 8
 --- !u!114 &1517595629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1036,6 +1094,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Body: {fileID: 383085305}
+  m_MaxTimeRate: 0.5
+  m_MinTimeRate: 0.05
+  m_MaxFoodAmount: 50
 --- !u!65 &1517595630
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1489,6 +1550,7 @@ GameObject:
   - component: {fileID: 2015739999}
   - component: {fileID: 2015739998}
   - component: {fileID: 2015739997}
+  - component: {fileID: 2015740001}
   m_Layer: 9
   m_Name: WallLeft
   m_TagString: Untagged
@@ -1572,6 +1634,22 @@ Transform:
   m_Father: {fileID: 352814790}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &2015740001
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015739996}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &2127564175
 GameObject:
   m_ObjectHideFlags: 0
