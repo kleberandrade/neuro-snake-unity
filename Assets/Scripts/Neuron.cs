@@ -1,66 +1,69 @@
 ﻿using System;
 using UnityEngine;
 
+[System.Serializable]
 public class Neuron
 {
-    private double Bias { get; set; } = 1;
-    public double LearnRate { get; set; }
-    public double[] Inputs { get; set; }
-    public double[] Weights { get; set; }
-    public double Output { get; set; }
-    public double DesiredOutput { get; set; }
-    public double Error { get; set; }
-    public double BackPropagatedError { get; set; }
+    public double m_Bias = 1;
+    public double m_LearnRate;
+    public double[] m_Inputs;
+    public double[] m_Weights;
+    public double m_Output;
+    public double m_DesiredOutput;
+    public double m_Error;
+    public double m_BackPropagatedError;
+
+    public Neuron() { }
 
     public Neuron(double learnRate)
     {
-        LearnRate = learnRate;
+        m_LearnRate = learnRate;
     }
 
     public Neuron(double[] inputs, double learnRate)
     {
-        Inputs = inputs;
-        LearnRate = learnRate;
+        m_Inputs = inputs;
+        m_LearnRate = learnRate;
     }
 
     public void RandomWeights()
     {
         System.Random random =new  System.Random(DateTime.Now.Millisecond);
-        Weights = new double[Inputs.Length + 1  ];
-        for (int i = 0; i < Weights.Length; i++)
-            Weights[i] = random.Next(-10000, 10000) / 10000.0;
+        m_Weights = new double[m_Inputs.Length + 1  ];
+        for (int i = 0; i < m_Weights.Length; i++)
+            m_Weights[i] = random.Next(-10000, 10000) / 10000.0;
     }
 
     public void Forward()
     {
-        double sum = Weights[0] * Bias;
-        for (int i = 0; i < Inputs.Length; i++)
-            sum += Weights[i + 1] * Inputs[i];
+        double sum = m_Weights[0] * m_Bias;
+        for (int i = 0; i < m_Inputs.Length; i++)
+            sum += m_Weights[i + 1] * m_Inputs[i];
 
-        Output = Math.Tanh(sum);
+        m_Output = Math.Tanh(sum);
     }
 
     public void CalculateError()
     {
-        Error = DesiredOutput - Output;
+        m_Error = m_DesiredOutput - m_Output;
     }
 
     public void CalculateBackPropagatedError() 
     {
-        BackPropagatedError = (1.0 - Output * Output) * Error;
+        m_BackPropagatedError = (1.0 - m_Output * m_Output) * m_Error;
     }
 
     public void WeightsAdjustment()
     {
-        Weights[0] += LearnRate * Bias * BackPropagatedError;
-        for (int i = 0; i < Inputs.Length; i++)
-            Weights[i + 1] += LearnRate * Inputs[i] * BackPropagatedError;
+        m_Weights[0] += m_LearnRate * m_Bias * m_BackPropagatedError;
+        for (int i = 0; i < m_Inputs.Length; i++)
+            m_Weights[i + 1] += m_LearnRate * m_Inputs[i] * m_BackPropagatedError;
     }
 
     public void Backward(double[] inputs, double desiredOutput)
     {
-        Inputs = inputs;
-        DesiredOutput = desiredOutput;
+        m_Inputs = inputs;
+        m_DesiredOutput = desiredOutput;
         Forward();
         CalculateError();
         CalculateBackPropagatedError();

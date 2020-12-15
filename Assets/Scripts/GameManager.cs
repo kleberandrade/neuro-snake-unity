@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
         Food.OnFoodEaten -= OnSpawnFood;
     }
 
-
     public void OnSpawnFood()
     {
         var x = m_SlotX[Random.Range(0, m_SlotX.Count)];

@@ -1,65 +1,68 @@
-﻿public class MultiLayerPreceptronNetwork 
+﻿[System.Serializable]
+public class MultiLayerPreceptronNetwork 
 {
-    public double LearnRate { get; set; }
-    public double[] Inputs { get; set; }
-    public Neuron[] HiddenLayer { get; set; }
-    public Neuron[] OutputLayer { get; set; }
-    public double[] DesiredOutputs { get; set; }
+    public double m_LearnRate;
+    public double[] m_Inputs;
+    public Neuron[] m_HiddenLayer;
+    public Neuron[] m_OutputLayer;
+    public double[] m_DesiredOutputs;
+
+    public MultiLayerPreceptronNetwork() { }
 
     public MultiLayerPreceptronNetwork(int inputLayerAmount, int hiddenLayerAmount, int outLayerAmount, double learnRate)
     {
-        LearnRate = learnRate;
-        HiddenLayer = new Neuron[hiddenLayerAmount];
+        m_LearnRate = learnRate;
+        m_HiddenLayer = new Neuron[hiddenLayerAmount];
         for (int i = 0; i < hiddenLayerAmount; i++)
         {
-            HiddenLayer[i] = new Neuron(LearnRate);
-            HiddenLayer[i].Inputs = new double[inputLayerAmount];
-            HiddenLayer[i].RandomWeights();
+            m_HiddenLayer[i] = new Neuron(m_LearnRate);
+            m_HiddenLayer[i].m_Inputs = new double[inputLayerAmount];
+            m_HiddenLayer[i].RandomWeights();
         }
 
-        OutputLayer = new Neuron[outLayerAmount];
+        m_OutputLayer = new Neuron[outLayerAmount];
         for (int i = 0; i < outLayerAmount; i++)
         {
-            OutputLayer[i] = new Neuron(LearnRate);
-            OutputLayer[i].Inputs = new double[hiddenLayerAmount];
-            OutputLayer[i].RandomWeights();
+            m_OutputLayer[i] = new Neuron(m_LearnRate);
+            m_OutputLayer[i].m_Inputs = new double[hiddenLayerAmount];
+            m_OutputLayer[i].RandomWeights();
         }
     }
 
     public void Forward()
     {
-        double[] hiddenOutput = new double[HiddenLayer.Length];
-        for (int i = 0; i < HiddenLayer.Length; i++)
+        double[] hiddenOutput = new double[m_HiddenLayer.Length];
+        for (int i = 0; i < m_HiddenLayer.Length; i++)
         {
-            HiddenLayer[i].Forward();
-            hiddenOutput[i] = HiddenLayer[i].Output;
+            m_HiddenLayer[i].Forward();
+            hiddenOutput[i] = m_HiddenLayer[i].m_Output;
         }
 
         SetInputOnOutputLayer(hiddenOutput);
-        for (int i = 0; i < OutputLayer.Length; i++)
+        for (int i = 0; i < m_OutputLayer.Length; i++)
         {
-            OutputLayer[i].Forward();
+            m_OutputLayer[i].Forward();
         }
     }
 
     public void SetInputOnOutputLayer(double[] inputs)
     {
-        for (int i = 0; i < OutputLayer.Length; i++)
-            OutputLayer[i].Inputs = inputs;
+        for (int i = 0; i < m_OutputLayer.Length; i++)
+            m_OutputLayer[i].m_Inputs = inputs;
     }
 
     public double[] GetOutputs()
     {
-        double[] outputs = new double[OutputLayer.Length];
-        for (int i = 0; i < OutputLayer.Length; i++)
-            outputs[i] = OutputLayer[i].Output;
+        double[] outputs = new double[m_OutputLayer.Length];
+        for (int i = 0; i < m_OutputLayer.Length; i++)
+            outputs[i] = m_OutputLayer[i].m_Output;
         return outputs;
     }
 
     public void SetInputOnHiddenLayer(double[] inputs)
     {
-        for (int i = 0; i < HiddenLayer.Length; i++)
-            HiddenLayer[i].Inputs = inputs;
+        for (int i = 0; i < m_HiddenLayer.Length; i++)
+            m_HiddenLayer[i].m_Inputs = inputs;
     }
 
     public double[] Calculate(double[] inputs)
@@ -71,36 +74,36 @@
 
     private void CalculateHiddenLayerErrors()
     {
-        for (int i = 0; i < HiddenLayer.Length; i++)
+        for (int i = 0; i < m_HiddenLayer.Length; i++)
         {
             double sum = 0.0;
-            for (int j = 0; j < OutputLayer.Length; j++)
-                sum += OutputLayer[j].BackPropagatedError * OutputLayer[j].Weights[i + 1];
+            for (int j = 0; j < m_OutputLayer.Length; j++)
+                sum += m_OutputLayer[j].m_BackPropagatedError * m_OutputLayer[j].m_Weights[i + 1];
 
-            HiddenLayer[i].Error = sum;
-            HiddenLayer[i].CalculateBackPropagatedError();
+            m_HiddenLayer[i].m_Error = sum;
+            m_HiddenLayer[i].CalculateBackPropagatedError();
         }
     }
 
     public void Backward(double[] inputs, double[] desiredOutputs)
     {
-        Inputs = inputs;
+        m_Inputs = inputs;
         SetInputOnHiddenLayer(inputs);
-        DesiredOutputs = desiredOutputs;
+        m_DesiredOutputs = desiredOutputs;
         Forward();
 
-        for (int i = 0; i < OutputLayer.Length; i++)
+        for (int i = 0; i < m_OutputLayer.Length; i++)
         {
-            OutputLayer[i].DesiredOutput = desiredOutputs[i];
-            OutputLayer[i].CalculateError();
-            OutputLayer[i].CalculateBackPropagatedError();
+            m_OutputLayer[i].m_DesiredOutput = desiredOutputs[i];
+            m_OutputLayer[i].CalculateError();
+            m_OutputLayer[i].CalculateBackPropagatedError();
         }
 
         CalculateHiddenLayerErrors();
-        for (int i = 0; i < HiddenLayer.Length; i++)
-            HiddenLayer[i].WeightsAdjustment();
+        for (int i = 0; i < m_HiddenLayer.Length; i++)
+            m_HiddenLayer[i].WeightsAdjustment();
 
-        for (int i = 0; i < OutputLayer.Length; i++)
-            OutputLayer[i].WeightsAdjustment();
+        for (int i = 0; i < m_OutputLayer.Length; i++)
+            m_OutputLayer[i].WeightsAdjustment();
     }
 }

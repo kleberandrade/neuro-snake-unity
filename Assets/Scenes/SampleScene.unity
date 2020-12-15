@@ -1071,16 +1071,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b103400940fd0a4096315b5f6927119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UseManualInput: 1
-  m_TimeRate: 0.5
+  m_UseManualInput: 0
+  m_TimeRate: 0.2
   m_FoodSensor: {fileID: 3627292608932232324, guid: 03b38760949c2d149a09e6e4417ec596,
     type: 3}
   m_WallSensor: {fileID: 9128740853906563646, guid: 022d48a070265d6448102478e78867d5,
     type: 3}
   m_BodySensor: {fileID: 4577132039623846388, guid: 82b1ff034e97e0b489fcd7789e688608,
     type: 3}
-  m_Amount: 8
-  m_BatchSize: 8
+  m_SensorNumber: 9
+  m_OffsetAngle: -30
+  m_MaxAngle: 240
+  m_BatchSize: 2
+  m_Samples: []
+  m_CanTrain: 0
+  m_LoadNet: 1
+  m_Filename: net.dat
+  m_LearRate: 0.5
+  m_HiddenLayerAmount: 100
+  m_OutputLayerAmount: 2
+  m_Net:
+    m_LearnRate: 2
+    m_Inputs:
+    - 0
+    - 0
+    m_HiddenLayer:
+    - m_Bias: 0
+      m_LearnRate: 0
+      m_Inputs: []
+      m_Weights: []
+      m_Output: 0
+      m_DesiredOutput: 0
+      m_Error: 0
+      m_BackPropagatedError: 0
+    - m_Bias: 0
+      m_LearnRate: 0
+      m_Inputs: []
+      m_Weights: []
+      m_Output: 0
+      m_DesiredOutput: 0
+      m_Error: 0
+      m_BackPropagatedError: 0
+    m_OutputLayer:
+    - m_Bias: 0
+      m_LearnRate: 0
+      m_Inputs: []
+      m_Weights: []
+      m_Output: 0
+      m_DesiredOutput: 0
+      m_Error: 0
+      m_BackPropagatedError: 0
+    - m_Bias: 0
+      m_LearnRate: 0
+      m_Inputs: []
+      m_Weights: []
+      m_Output: 0
+      m_DesiredOutput: 0
+      m_Error: 0
+      m_BackPropagatedError: 0
+    m_DesiredOutputs:
+    - 0
+    - 0
 --- !u!114 &1517595629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1094,7 +1145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Body: {fileID: 383085305}
-  m_MaxTimeRate: 0.5
+  m_MaxTimeRate: 0.2
   m_MinTimeRate: 0.05
   m_MaxFoodAmount: 50
 --- !u!65 &1517595630
